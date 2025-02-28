@@ -56,6 +56,10 @@
         </th>
 
         <th>
+          Calories
+        </th>
+
+        <th>
           Created at
         </th>
 
@@ -68,40 +72,44 @@
       </tr>
 
       <% @list_of_meals.each do |a_meal| %>
-      <tr>
-        <td>
-          <%= a_meal.id %>
-        </td>
+        <tr>
+          <td>
+            <%= a_meal.id %>
+          </td>
 
-        <td>
-          <%= a_meal.description %>
-        </td>
+          <td>
+            <%= a_meal.description %>
+          </td>
 
-        <td>
-          <%= a_meal.fat %>
-        </td>
+          <td>
+            <%= a_meal.fat %>
+          </td>
 
-        <td>
-          <%= a_meal.carbs %>
-        </td>
+          <td>
+            <%= a_meal.carbs %>
+          </td>
 
-        <td>
-          <%= a_meal.protein %>
-        </td>
+          <td>
+            <%= a_meal.protein %>
+          </td>
 
-        <td>
-          <%= time_ago_in_words(a_meal.created_at) %> ago
-        </td>
-        <td>
-          <%= time_ago_in_words(a_meal.updated_at) %> ago
-        </td>
+          <td>
+            <%= a_meal.calories %>
+          </td>
 
-        <td>
-          <a href="/meals/<%= a_meal.id %>">
-            Show details
-          </a>
-        </td>
-      </tr>
+          <td>
+            <%= time_ago_in_words(a_meal.created_at) %> ago
+          </td>
+          <td>
+            <%= time_ago_in_words(a_meal.updated_at) %> ago
+          </td>
+
+          <td>
+            <a href="/meals/<%= a_meal.id %>">
+              Show details
+            </a>
+          </td>
+        </tr>
       <% end %>
     </table>
   </div>

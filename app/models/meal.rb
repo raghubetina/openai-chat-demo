@@ -3,6 +3,7 @@
 # Table name: meals
 #
 #  id          :bigint           not null, primary key
+#  calories    :integer
 #  carbs       :integer
 #  description :text
 #  fat         :integer

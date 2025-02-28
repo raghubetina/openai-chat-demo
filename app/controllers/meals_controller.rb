@@ -20,9 +20,51 @@ class MealsController < ApplicationController
   def create
     the_meal = Meal.new
     the_meal.description = params.fetch("query_description")
-    the_meal.fat = params.fetch("query_fat")
-    the_meal.carbs = params.fetch("query_carbs")
-    the_meal.protein = params.fetch("query_protein")
+
+    # Use OpenAI to get the values for fat, carbs, protein, calories
+
+    c = OpenAI::Chat.new
+    c.system("You are a nutritionist. Estimate the calories, carbs, protein, and fat in the user's meal.")
+    c.schema = '{
+      "name": "nutrition_info",
+      "strict": true,
+      "schema": {
+        "type": "object",
+        "properties": {
+          "calories": {
+            "type": "number",
+            "description": "The total calories in the food item."
+          },
+          "fat": {
+            "type": "number",
+            "description": "Total fat content in grams."
+          },
+          "carbs": {
+            "type": "number",
+            "description": "Total carbohydrates in grams."
+          },
+          "protein": {
+            "type": "number",
+            "description": "Total protein content in grams."
+          }
+        },
+        "required": [
+          "calories",
+          "fat",
+          "carbs",
+          "protein"
+        ],
+        "additionalProperties": false
+      }
+    }'
+
+    c.user(the_meal.description)
+    meal_info = c.assistant!
+
+    the_meal.fat = meal_info.fetch("fat")
+    the_meal.carbs = meal_info.fetch("carbs")
+    the_meal.protein = meal_info.fetch("protein")
+    the_meal.calories = meal_info.fetch("calories")
 
     if the_meal.valid?
       the_meal.save
