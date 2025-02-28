@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.2.1"
 
+gem "openai-chat", github: "firstdraft/openai-chat"
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3", ">= 7.1.3.2"
 
@@ -101,12 +103,12 @@ group :development do
 end
 
 group :development, :test do
-  gem "rspec-rails", "~> 6.0.0"
+  # gem "rspec-rails", "~> 6.0.0"
 end
 
 group :test do
-  gem "draft_matchers"
-  gem "shoulda-matchers", "~> 4.0"
-  gem "rspec-html-matchers"
+  # gem "draft_matchers"
+  # gem "shoulda-matchers", "~> 4.0"
+  # gem "rspec-html-matchers"
   gem "webmock"
 end
